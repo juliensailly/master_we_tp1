@@ -11,7 +11,6 @@ class Pencil {
 		this.ctx = ctx
 		this.drawing = drawing
 
-		// Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
 		document.getElementById("spinnerWidth").addEventListener("input", (evt) => {
 			this.currLineWidth = evt.target.valueAsNumber
 		})
@@ -88,6 +87,7 @@ class Pencil {
 	onInteractionEnd(dnd) {
 		this.drawing.shapes.push(this.currShape)
 		this.drawing.paint(this.ctx)
+		view.updateShapeList(this.drawing.shapes)
 	}
 };
 

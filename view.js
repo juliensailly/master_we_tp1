@@ -33,4 +33,25 @@ class View {
         ctx.lineTo(line.x2, line.y2);
         ctx.stroke();
     }
+
+    updateShapeList(shapeList) {
+        let shapeListElement = document.getElementById("shapeList")
+        let rectangleListElement = document.getElementById("rectangle-element")
+        let lineListElement = document.getElementById("line-element")
+
+        shapeListElement.innerHTML = ""
+        shapeList.forEach(shape => {
+            if (shape instanceof Rectangle) {
+                let temp = rectangleListElement.cloneNode(true)
+                temp.id = ""
+                temp.style = ""
+                shapeListElement.appendChild(temp)
+            } else {
+                let temp = lineListElement.cloneNode(true)
+                temp.id = ""
+                temp.style = ""
+                shapeListElement.appendChild(temp)
+            }
+        });
+    }
 }

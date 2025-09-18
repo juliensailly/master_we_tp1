@@ -3,7 +3,7 @@ let editingMode = { rect: 0, line: 1 };
 
 class Pencil {
 	constructor(ctx, drawing, canvas) {
-		this.currEditingMode = editingMode.line
+		this.currEditingMode = editingMode.rect
 		this.currLineWidth = 5
 		this.currColour = '#000000'
 		this.currShape = 0
@@ -21,7 +21,10 @@ class Pencil {
 		document.getElementById("butRect").addEventListener("input", (evt => {
 			if (evt.target.checked) {
 				this.currEditingMode = editingMode.rect
-			} else {
+			}
+		}))
+		document.getElementById("butLine").addEventListener("input", (evt => {
+			if (evt.target.checked) {
 				this.currEditingMode = editingMode.line
 			}
 		}))

@@ -6,7 +6,7 @@ class Drawing {
     }
 
     paint(ctx) {
-        ctx.fillStyle = '#F0F0F0';
+        ctx.fillStyle = '#e3ffd8ff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         this.shapes.forEach(function (shape) {
             shape.paint(ctx);
@@ -23,8 +23,8 @@ class Shape {
     }
 
     paint(ctx) {
-        ctx.color = this.color
-        ctx.thickness = this.thickness
+        ctx.strokeStyle = this.color
+        ctx.lineWidth = this.thickness
     }
 }
 
@@ -42,7 +42,7 @@ class Rectangle extends Shape {
     paint(ctx) {
         super.paint(ctx)
         ctx.beginPath();
-        ctx.rect(this.x, this.y, this.x + this.width, this.y + this.height);
+        ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
     }
 }

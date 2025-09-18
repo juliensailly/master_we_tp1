@@ -25,7 +25,20 @@ class Pencil {
 
 		new DnD(canvas, this);
 
-		// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
+        this.onInteractionStart = this.onInteractionStart.bind(this)
+        this.onInteractionUpdate = this.onInteractionUpdate.bind(this)
+        this.onInteractionEnd = this.onInteractionEnd.bind(this)
+	}
+
+	onInteractionStart(dnd) {
+		
+	}
+
+	onInteractionUpdate(dnd) {
+
+	}
+
+	onInteractionEnd(dnd) {
 
 	}
 };

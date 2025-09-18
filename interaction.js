@@ -29,6 +29,8 @@ class DnD {
     if (!evt) return
 
     this.isMouseDown = true
+
+    this.interactor.onInteractionStart(this)
   }
 
   mouseMoveHandle(evt) {
@@ -39,11 +41,15 @@ class DnD {
     this.initY = this.finY
     this.finX = mousePosition.x
     this.finY = mousePosition.y
+
+    this.interactor.onInteractionUpdate(this)
   }
 
   mouseUpHandle(evt) {
     if (!evt) return
 
     this.isMouseDown = false
+
+    this.interactor.onInteractionEnd(this)
   }
 }

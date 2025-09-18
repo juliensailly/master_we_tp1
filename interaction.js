@@ -10,6 +10,7 @@ function getMousePosition(canvas, evt) {
 class DnD {
   constructor(canvas, interactor) {
     this.canvas = canvas
+    this.interactor = interactor
     this.initX = 0
     this.initY = 0
     this.finX = 0
@@ -30,6 +31,10 @@ class DnD {
 
     this.isMouseDown = true
 
+    let mousePosition = getMousePosition(this.canvas, evt)
+    this.initX = mousePosition.x
+    this.initY = mousePosition.y
+
     this.interactor.onInteractionStart(this)
   }
 
@@ -37,8 +42,6 @@ class DnD {
     if (!evt || !this.isMouseDown) return
 
     let mousePosition = getMousePosition(this.canvas, evt)
-    this.initX = this.finX
-    this.initY = this.finY
     this.finX = mousePosition.x
     this.finY = mousePosition.y
 

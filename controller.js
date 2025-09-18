@@ -3,10 +3,13 @@ let editingMode = { rect: 0, line: 1 };
 
 class Pencil {
 	constructor(ctx, drawing, canvas) {
-		this.currEditingMode = editingMode.line;
-		this.currLineWidth = 5;
-		this.currColour = '#000000';
-		this.currentShape = 0;
+		this.currEditingMode = editingMode.line
+		this.currLineWidth = 5
+		this.currColour = '#000000'
+		this.currShape = 0
+
+		this.ctx = ctx
+		this.drawing = drawing
 
 		// Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
 		document.getElementById("spinnerWidth").addEventListener("input", (evt) => {
@@ -19,27 +22,69 @@ class Pencil {
 			if (evt.target.checked) {
 				this.currEditingMode = editingMode.rect
 			} else {
-				this.currentShape = editingMode.line
+				this.currEditingMode = editingMode.line
 			}
 		}))
 
 		new DnD(canvas, this);
 
-        this.onInteractionStart = this.onInteractionStart.bind(this)
-        this.onInteractionUpdate = this.onInteractionUpdate.bind(this)
-        this.onInteractionEnd = this.onInteractionEnd.bind(this)
+		this.onInteractionStart = this.onInteractionStart.bind(this)
+		this.onInteractionUpdate = this.onInteractionUpdate.bind(this)
+		this.onInteractionEnd = this.onInteractionEnd.bind(this)
 	}
 
 	onInteractionStart(dnd) {
-		
+		if (this.currEditingMode == editingMode.rect) {
+			this.currShape = new Rectangle(
+				this.currColour,
+				this.currLineWidth,
+				dnd.initX,
+				dnd.initY,
+				dnd.initX,
+				dnd.initY
+			)
+		} else {
+			this.currShape = new Line(
+				this.currColour,
+				this.currLineWidth,
+				dnd.initX,
+				dnd.initY,
+				dnd.initX,
+				dnd.initY
+			)
+		}
+
+		this.drawing.paint(this.ctx)
 	}
 
 	onInteractionUpdate(dnd) {
+		if (this.currEditingMode == editingMode.rect) {
+			this.currShape = new Rectangle(
+				this.currColour,
+				this.currLineWidth,
+				dnd.initX,
+				dnd.initY,
+				dnd.finX,
+				dnd.finY
+			)
+		} else {
+			this.currShape = new Line(
+				this.currColour,
+				this.currLineWidth,
+				dnd.initX,
+				dnd.initY,
+				dnd.finX,
+				dnd.finY
+			)
+		}
 
+		this.drawing.paint(this.ctx)
+		this.currShape.paint(this.ctx)
 	}
 
 	onInteractionEnd(dnd) {
-
+		this.drawing.shapes.push(this.currShape)
+		this.drawing.paint(this.ctx)
 	}
 };
 

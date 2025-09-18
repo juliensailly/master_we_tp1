@@ -29,7 +29,6 @@ class DnD {
     if (!evt) return
 
     this.isMouseDown = true
-    console.log(this.initX + " " + this.initY + " " + this.finX + " " + this.finY)
   }
 
   mouseMoveHandle(evt) {
@@ -40,15 +39,11 @@ class DnD {
     this.initY = this.finY
     this.finX = mousePosition.x
     this.finY = mousePosition.y
-
-    console.log(this.initX + " " + this.initY + " " + this.finX + " " + this.finY)
   }
 
   mouseUpHandle(evt) {
     if (!evt) return
 
     this.isMouseDown = false
-
-    console.log(this.initX + " " + this.initY + " " + this.finX + " " + this.finY)
   }
 }

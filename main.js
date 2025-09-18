@@ -10,10 +10,10 @@ new DnD(canvas);
 /////
 
 // Code temporaire pour tester l'affiche de la vue
-//var rec = new Rectangle(10, 20, 50, 100, 5, '#00CCC0');
-//rec.paint(ctx);
-//var ligne = new Rectangle(10, 20, 50, 100, 5, '#00CCC0');
-//ligne.paint(ctx);
+let rec = new Rectangle('#00CCC0', 5, 10, 20, 50, 100);
+rec.paint(ctx);
+let ligne = new Line('#00CCC0', 5, 10, 20, 50, 100);
+ligne.paint(ctx);
 // tester également Dessin.
 ////
 

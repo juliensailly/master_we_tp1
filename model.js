@@ -40,7 +40,7 @@ class Rectangle extends Shape {
     }
 
     paint(ctx) {
-        super.paint()
+        super.paint(ctx)
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.x + this.width, this.y + this.height);
         ctx.stroke();
@@ -59,7 +59,7 @@ class Line extends Shape {
     }
 
     paint(ctx) {
-        super.paint()
+        super.paint(ctx)
         ctx.beginPath();
         ctx.moveTo(this.x1, this.y1);
         ctx.lineTo(this.x2, this.y2);

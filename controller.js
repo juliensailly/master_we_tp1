@@ -43,8 +43,8 @@ class Pencil {
 				this.currLineWidth,
 				dnd.initX,
 				dnd.initY,
-				dnd.initX,
-				dnd.initY
+				dnd.initX - dnd.initX,
+				dnd.initY - dnd.initY
 			)
 		} else {
 			this.currShape = new Line(
@@ -67,8 +67,8 @@ class Pencil {
 				this.currLineWidth,
 				dnd.initX,
 				dnd.initY,
-				dnd.finX,
-				dnd.finY
+				dnd.finX - dnd.initX,
+				dnd.finY - dnd.initY
 			)
 		} else {
 			this.currShape = new Line(

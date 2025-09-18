@@ -1,3 +1,5 @@
+const view = new View()
+
 class Drawing {
     constructor() {
         this.shapes = []
@@ -6,11 +8,7 @@ class Drawing {
     }
 
     paint(ctx) {
-        ctx.fillStyle = '#e3ffd8ff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this.shapes.forEach(function (shape) {
-            shape.paint(ctx);
-        });
+        view.paintDrawing(ctx, this)
     }
 }
 
@@ -23,8 +21,7 @@ class Shape {
     }
 
     paint(ctx) {
-        ctx.strokeStyle = this.color
-        ctx.lineWidth = this.thickness
+        view.paintShape(ctx, this)
     }
 }
 
@@ -40,10 +37,7 @@ class Rectangle extends Shape {
     }
 
     paint(ctx) {
-        super.paint(ctx)
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        view.paintRectangle(ctx, this)
     }
 }
 
@@ -59,10 +53,6 @@ class Line extends Shape {
     }
 
     paint(ctx) {
-        super.paint(ctx)
-        ctx.beginPath();
-        ctx.moveTo(this.x1, this.y1);
-        ctx.lineTo(this.x2, this.y2);
-        ctx.stroke();
+        view.paintLine(ctx, this)
     }
 }

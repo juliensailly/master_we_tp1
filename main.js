@@ -5,5 +5,5 @@ canvas.width=800
 canvas.height=600
 
 let drawing = new Drawing();
-let pencil = new Pencil(ctx, drawing, canvas);
+let pencil = new Pencil(ctx, drawing, canvas, view);
 drawing.paint(ctx, canvas);

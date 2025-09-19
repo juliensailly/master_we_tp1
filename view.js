@@ -34,24 +34,25 @@ class View {
         ctx.stroke();
     }
 
-    updateShapeList(shapeList) {
+    updateShapeList(controller) {
         let shapeListElement = document.getElementById("shapeList")
         let rectangleListElement = document.getElementById("rectangle-element")
         let lineListElement = document.getElementById("line-element")
 
         shapeListElement.innerHTML = ""
-        shapeList.forEach(shape => {
+        controller.drawing.shapes.forEach((shape, i) => {
+            let temp;
             if (shape instanceof Rectangle) {
-                let temp = rectangleListElement.cloneNode(true)
-                temp.id = ""
-                temp.style = ""
-                shapeListElement.appendChild(temp)
+                temp = rectangleListElement.cloneNode(true)
             } else {
-                let temp = lineListElement.cloneNode(true)
-                temp.id = ""
-                temp.style = ""
-                shapeListElement.appendChild(temp)
+                temp = lineListElement.cloneNode(true)
             }
+            temp.id = ""
+            temp.style = ""
+            temp.addEventListener("click", () => {
+                controller.removeShape(i)
+            })
+            shapeListElement.appendChild(temp)
         });
     }
 }

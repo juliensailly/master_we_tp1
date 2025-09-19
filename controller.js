@@ -1,8 +1,7 @@
-
 let editingMode = { rect: 0, line: 1 };
 
 class Pencil {
-	constructor(ctx, drawing, canvas) {
+	constructor(ctx, drawing, canvas, view) {
 		this.currEditingMode = editingMode.rect
 		this.currLineWidth = 5
 		this.currColour = '#000000'
@@ -10,6 +9,7 @@ class Pencil {
 
 		this.ctx = ctx
 		this.drawing = drawing
+		this.view = view
 
 		document.getElementById("spinnerWidth").addEventListener("input", (evt) => {
 			this.currLineWidth = evt.target.valueAsNumber
@@ -42,8 +42,8 @@ class Pencil {
 				this.currLineWidth,
 				dnd.initX,
 				dnd.initY,
-				dnd.initX - dnd.initX,
-				dnd.initY - dnd.initY
+				0,
+				0
 			)
 		} else {
 			this.currShape = new Line(
@@ -87,8 +87,12 @@ class Pencil {
 	onInteractionEnd(dnd) {
 		this.drawing.shapes.push(this.currShape)
 		this.drawing.paint(this.ctx)
-		view.updateShapeList(this.drawing.shapes)
+		this.view.updateShapeList(this)
+	}
+
+	removeShape(i) {
+		this.drawing.shapes.splice(i, 1)
+		this.view.updateShapeList(this)
+		this.drawing.paint(this.ctx)
 	}
 };
-
-

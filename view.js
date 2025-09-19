@@ -15,8 +15,22 @@ class View {
     }
 
     paintShape(ctx, shape) {
-        ctx.strokeStyle = shape.color
-        ctx.lineWidth = shape.thickness
+        ctx.strokeStyle = shape.color;
+        ctx.lineWidth = shape.thickness;
+        // Set line style
+        if (shape.style === 'dotted') {
+            ctx.setLineDash([2, 6]);
+        } else if (shape.style === 'dashed') {
+            ctx.setLineDash([10, 10]);
+        } else {
+            ctx.setLineDash([]);
+        }
+    }
+    paintEllipse(ctx, ellipse) {
+        this.paintShape(ctx, ellipse);
+        ctx.beginPath();
+        ctx.ellipse(ellipse.cx, ellipse.cy, Math.abs(ellipse.rx), Math.abs(ellipse.ry), 0, 0, 2 * Math.PI);
+        ctx.stroke();
     }
 
     paintRectangle(ctx, rectangle) {
@@ -44,6 +58,10 @@ class View {
             let temp;
             if (shape instanceof Rectangle) {
                 temp = rectangleListElement.cloneNode(true)
+            } else if (shape instanceof Ellipse) {
+                temp = rectangleListElement.cloneNode(true)
+                temp.querySelector('span.me-2').innerHTML = '&#9675;';
+                temp.querySelectorAll('span.me-2')[1].textContent = 'Ellipse';
             } else {
                 temp = lineListElement.cloneNode(true)
             }

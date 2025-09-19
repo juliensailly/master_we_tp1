@@ -1,4 +1,4 @@
-let editingMode = { rect: 0, line: 1 };
+let editingMode = { rect: 0, line: 1, ellipse: 2 };
 
 class Pencil {
 	constructor(ctx, drawing, canvas, view) {
@@ -30,6 +30,16 @@ class Pencil {
 				this.currEditingMode = editingMode.line
 			}
 		}))
+		document.getElementById("butEllipse").addEventListener("input", (evt => {
+			if (evt.target.checked) {
+				this.currEditingMode = editingMode.ellipse
+			}
+		}))
+
+		this.currLineStyle = 'solid';
+		document.getElementById("lineStyle").addEventListener("change", (evt) => {
+			this.currLineStyle = evt.target.value;
+		});
 
 		new DnD(canvas, this);
 
@@ -51,8 +61,19 @@ class Pencil {
 				dnd.initX,
 				dnd.initY,
 				0,
-				0
-			)
+				0,
+				this.currLineStyle
+			);
+		} else if (this.currEditingMode == editingMode.ellipse) {
+			this.currShape = new Ellipse(
+				this.currColour,
+				this.currLineWidth,
+				dnd.initX,
+				dnd.initY,
+				0,
+				0,
+				this.currLineStyle
+			);
 		} else {
 			this.currShape = new Line(
 				this.currColour,
@@ -60,11 +81,11 @@ class Pencil {
 				dnd.initX,
 				dnd.initY,
 				dnd.initX,
-				dnd.initY
-			)
+				dnd.initY,
+				this.currLineStyle
+			);
 		}
-
-		this.drawing.paint(this.ctx)
+		this.drawing.paint(this.ctx);
 	}
 
 	onInteractionUpdate(dnd) {
@@ -75,8 +96,19 @@ class Pencil {
 				dnd.initX,
 				dnd.initY,
 				dnd.finX - dnd.initX,
-				dnd.finY - dnd.initY
-			)
+				dnd.finY - dnd.initY,
+				this.currLineStyle
+			);
+		} else if (this.currEditingMode == editingMode.ellipse) {
+			this.currShape = new Ellipse(
+				this.currColour,
+				this.currLineWidth,
+				(dnd.initX + dnd.finX) / 2,
+				(dnd.initY + dnd.finY) / 2,
+				Math.abs((dnd.finX - dnd.initX) / 2),
+				Math.abs((dnd.finY - dnd.initY) / 2),
+				this.currLineStyle
+			);
 		} else {
 			this.currShape = new Line(
 				this.currColour,
@@ -84,12 +116,12 @@ class Pencil {
 				dnd.initX,
 				dnd.initY,
 				dnd.finX,
-				dnd.finY
-			)
+				dnd.finY,
+				this.currLineStyle
+			);
 		}
-
-		this.drawing.paint(this.ctx)
-		this.currShape.paint(this.ctx)
+		this.drawing.paint(this.ctx);
+		this.currShape.paint(this.ctx);
 	}
 
 	onInteractionEnd(dnd) {
